@@ -67,7 +67,7 @@ Copy code
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/mahfouzalFarddin/AI-Camera-Translator.git
+   git clone https://github.com/Mahfouj/AI-Camera-Translator.git
 Open the project in Android Studio (Giraffe or later)
 
 Build & Run
