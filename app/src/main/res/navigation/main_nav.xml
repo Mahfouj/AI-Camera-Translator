@@ -7,33 +7,28 @@
 
     <fragment
         android:id="@+id/cameraFragment"
-        android:name="com.example.aicameratranslator.CameraFragment"
+        android:name="com.example.aicameratranslator.presentation.camera.CameraFragment"
         android:label="fragment_camera"
         tools:layout="@layout/fragment_camera" >
 
         <action
             android:id="@+id/action_camera_to_history"
-            app:destination="@id/historyFragment"
-            app:popUpTo="@id/cameraFragment"
-            app:popUpToInclusive="false"
-            />
+            app:destination="@id/historyFragment" />
+        <!-- ID has been corrected for consistency -->
         <action
-            android:id="@+id/action_cameraFragment_to_translationFragment2"
+            android:id="@+id/action_cameraFragment_to_translationFragment"
             app:destination="@id/translationFragment" />
     </fragment>
 
-
-
-
     <fragment
         android:id="@+id/translationFragment"
-        android:name="com.example.aicameratranslator.translationFragment"
+        android:name="com.example.aicameratranslator.presentation.translation.TranslationFragment"
         android:label="fragment_translation"
         tools:layout="@layout/fragment_translation">
         <argument
-        android:name="extractedText"
-        app:argType="string"
-        app:nullable="true" />
+            android:name="extractedText"
+            app:argType="string"
+            app:nullable="true" />
         <action
             android:id="@+id/action_translation_to_history"
             app:destination="@id/historyFragment" />
@@ -41,18 +36,19 @@
             android:id="@+id/action_translation_to_camera"
             app:destination="@id/cameraFragment"
             app:popUpTo="@id/cameraFragment"
-            app:popUpToInclusive="false" />
+            app:popUpToInclusive="true" />
     </fragment>
+
 
     <fragment
         android:id="@+id/historyFragment"
-        android:name="com.example.aicameratranslator.historyFragment"
+        android:name="com.example.aicameratranslator.presentation.history.HistoryFragment"
         android:label="fragment_history"
         tools:layout="@layout/fragment_history" >
-    <action
-        android:id="@+id/action_history_to_camera"
-        app:destination="@id/cameraFragment"
-        app:popUpTo="@id/cameraFragment"
-        app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_history_to_camera"
+            app:destination="@id/cameraFragment"
+            app:popUpTo="@id/cameraFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

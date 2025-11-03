@@ -1,8 +1,11 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.hilt)
     alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.hiltAndroid)
+
+    alias(libs.plugins.androidx.navigation.safeargs)
+
 }
 
 android {
@@ -28,76 +31,76 @@ android {
             )
         }
     }
+
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
     buildFeatures {
         viewBinding = true
     }
-
-    // This block can often be removed when using Hilt, but it's safe to keep.
     kapt {
         correctErrorTypes = true
     }
+    packaging {
+        jniLibs {
+            useLegacyPackaging = true
+        }
+    }
+
 }
 
 dependencies {
-    // --- AndroidX Core UI ---
+    // Core
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.androidx.activity)
+    implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.constraintlayout)
 
-    // --- Navigation ---
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
-
-    // --- Lifecycle & ViewModel ---
+    // Lifecycle
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
 
-    // --- Room (Offline Mode / History / Favorites) ---
-    implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.fragment)
-    kapt(libs.androidx.room.compiler)
-    implementation(libs.androidx.room.ktx)
+    // Navigation
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
 
-    // --- CameraX (OCR) ---
+    // Room
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    kapt(libs.androidx.room.compiler)
+
+    // Hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+
+    // Retrofit & Networking
+    implementation(libs.squareup.retrofit)
+    implementation(libs.squareup.retrofit.gson)
+    implementation(libs.squareup.okhttp.logging.interceptor)
+
+    // CameraX
     implementation(libs.androidx.camera.core)
     implementation(libs.androidx.camera.camera2)
     implementation(libs.androidx.camera.lifecycle)
     implementation(libs.androidx.camera.view)
 
-    // --- ML Kit OCR (Text Recognition) ---
+    // ML Kit OCR
     implementation(libs.google.mlkit.text.recognition)
 
-    // --- Networking (API Translation) ---
-    implementation(libs.squareup.retrofit)
-    implementation(libs.squareup.retrofit.gson)
-    implementation(libs.squareup.okhttp)
-    // FIX: Use the correct, direct alias for the logging interceptor
-    implementation(libs.logging.interceptor)
-
-    // --- Coroutines (Background Tasks) ---
-    implementation(libs.kotlinx.coroutines.android)
-
-    // --- Analytics & Crash Reporting ---
+    // Analytics & Crash
     implementation(libs.sentry.android)
     implementation(libs.appcenter.analytics)
     implementation(libs.appcenter.crashes)
 
-    // --- Hilt (Dependency Injection) ---
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
-
-
-    // --- Testing ---
+    // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.androidx.espresso)
 }
+
+
